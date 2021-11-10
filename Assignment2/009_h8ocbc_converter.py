@@ -70,7 +70,6 @@ while state:
     try:
         x = input('   Masukkan kode program: ')
         assert (x in listProgram) , "Pilihan tidak ada. Mohon coba lagi!!"
-
         value = int(input("   Masukkan nilai: "))
     except ValueError:
         print("Input harus berupa angka. Mohon Coba Lagi!!")
