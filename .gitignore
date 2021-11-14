@@ -8,6 +8,14 @@ ENV/
 env.bak/
 venv.bak/
 
+
+practice/
+hacktiv8/
+flasksql/
+flasksqlnotes/
+
+
+
 # Jupyter Notebook
 .ipynb_checkpoints
 */.ipynb_checkpoints/*

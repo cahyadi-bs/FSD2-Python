@@ -8,6 +8,8 @@ from flask import url_for
 # Rendering Templates
 from flask import render_template
 
+from author_book import author_book
+
 app = Flask(__name__)
 
 # @app.route('/')
@@ -82,6 +84,33 @@ def login():
 def helloTemplate(name=None):
     return render_template('hello.html', name=name)
 
+@app.route('/post/')
+def getPost():
+    data = [
+        {
+            "title" : "Title 1",
+            "body" : "This is a Body"
+        },
+        {
+            "title" : "Title 2",
+            "body" : "This is a Body"
+        },
+        {
+            "title" : "Title 3",
+            "body" : "This is a Body"
+        },
+        {
+            "title" : "Title 4",
+            "body" : "This is a Body"
+        }
+    ]
+    return render_template('hello.html', data = data)
+
+@app.route('/home')
+@app.route('/')
+def home():
+    # return 'Hello, World!'
+    return render_template('index.html')
 
 @app.route("/users", methods=['GET'])
 def get_user():
@@ -89,13 +118,36 @@ def get_user():
         "user": "John Doe",
     }
 
-@app.route('/fdoo', methods=['GET'])
+@app.route('/foo', methods=['GET'])
 def index_page():
     response = jsonify('Hello World!!!')
     response.status_code = 200
 
     return response
 
+
+@app.route('/author', methods=['GET', 'POST'])
+def author():
+    if 'author_id' in request.form:
+        author_book[request.form['author_id']] = []
+
+    return render_template('author.html', author_book = author_book)
+
+# @app.route('/books/<author_id>')
+@app.route('/books/<int:author_id>')
+def books(author_id):
+    # html = f'List of Books authored by {author_id}:'
+    # html += '<ul> <li>intro to lyfe</li> <li>intro to lyfe 2</li> <li>intro to lye3</li></ul>'
+    # return html
+    # return render_template('book.html', template_var_author=author_id)
+    # if author_id != 400:
+    if len(author_book[author_id]) == 0:
+        return render_template('book.html', author_id=author_id)
+    else:
+        return render_template('book.html', author_id=author_id, book_list=author_book[author_id])
+    
+    # return render_template('book.html', author_id=author_id, book_list=author_book[author_id])
+    # return render_template('book.html', author_id=author_id)
 
 # Request
 # @app.route('/api', methods = ['POST', 'GET'])
@@ -111,4 +163,5 @@ def index_page():
 
 
 if __name__ == '__main__':
+    # webbrowser.open_new('http://127.0.0.1:5000/')
     app.run(debug=True)

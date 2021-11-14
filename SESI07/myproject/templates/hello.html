@@ -9,10 +9,26 @@
 </head>
 <title>Hello from Flask</title>
 <body>
-    {% if name %}
+    <!-- {% if name %}
         <h1>Hello {{ name }}!</h1>
     {% else %}
         <h1>Hello, World!</h1>
-    {% endif %}
+    {% endif %} -->
+
+    {% for post in data %}
+        <ul>
+            <li>{{ post.title }}</li>
+            <li>{{ post.body }}</li>
+        </ul>
+    {% endfor %}
+
+
+    <form action="" method="post">
+        <label for="postTitle"></label>
+        <input type="text" name="postTitle" id="postTitle">
+        <label for="postBody"></label>
+        <input type="text" name="postBody" id="postBody">
+        <button type="submit">Send</button>
+    </form>
 </body>
 </html>
